@@ -1,3 +1,4 @@
+'use strict'
 const express = require('express')
 const cors = require('cors')
 const ytdl = require('ytdl-core')
@@ -17,18 +18,27 @@ app.use(express.static('public'))
 // Basic routes
 app.get('/', (req, res) => res.render('index', { title: 'Youtube Downloader' }))
 
-app.get('/download', (req, res) => {
+app.get('/download', async (req, res) => {
   const url = req.query.URL
-  console.log(`Requested download URL: ${url}`)
-  res.header('Content-Disposition', 'atachment; filename="video.mp4"')
-  try {
-    ytdl(url, {
-      format: 'mp4',
-    }).pipe(res)
-  } catch (err) {
-    console.log(err)
-  }
+  //const info = await ytdl.getBasicInfo(url)
+  const info = await ytdl.getInfo(url, {
+    format: 'mp4'
+  })
+  const contentLength = info.formats[0].contentLength.toString()
 
+  console.log(`Requested download URL: ${url}`)
+  console.log('Video info:')
+  console.log('Name:', info.videoDetails.title)
+  console.log(contentLength)
+
+  res.set({
+    'Content-Disposition': 'attachment; filename="' + info.videoDetails.title + '.mp4"',
+    'Content-Length': contentLength
+  })
+
+  ytdl(url, {
+    format: 'mp4',
+  }).pipe(res)
 })
 
 app.use((req, res) => {
