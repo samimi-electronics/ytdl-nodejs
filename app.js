@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
-const cors = require('cors')
 const ytdl = require('ytdl-core')
+const cors = require('cors')
 
 // App configuration
 const PORT = process.env.PORT || 3000
@@ -14,6 +14,9 @@ app.set('view engine', 'ejs')
 
 // Static public folder
 app.use(express.static('public'))
+
+// Cors
+app.use(cors())
 
 // Basic routes
 app.get('/', (req, res) => res.render('index', { title: 'Youtube Downloader' }))
