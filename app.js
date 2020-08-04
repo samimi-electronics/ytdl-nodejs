@@ -18,7 +18,17 @@ app.use(express.static('public'))
 app.get('/', (req, res) => res.render('index', { title: 'Youtube Downloader' }))
 
 app.get('/download', (req, res) => {
-  res.send('/download')
+  const url = req.query.URL
+  console.log(`Requested download URL: ${url}`)
+  res.header('Content-Disposition', 'atachment; filename="video.mp4"')
+  try {
+    ytdl(url, {
+      format: 'mp4',
+    }).pipe(res)
+  } catch (err) {
+    console.log(err)
+  }
+
 })
 
 app.use((req, res) => {
