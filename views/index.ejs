@@ -5,8 +5,11 @@
   <div class="container">
     <h1>Youtube Downloader</h1>
     <div class="download-form">
-      <input type="text" placeholder="Paste video URL here...">
-      <button>Download</button>
+      <form action="/download" method="GET">
+        <input id="download-url-input" name="URL" type="text" placeholder="Paste video URL here...">
+        <button id="submit-btn" type="sumbit">Download</button>
+      </form>
+      
     </div>
   </div>
 </body>
