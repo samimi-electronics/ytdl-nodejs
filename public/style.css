@@ -74,3 +74,21 @@ body {
   cursor: pointer;
   color: rgb(156, 212, 207);
 }
+
+.error404-body {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error404-body h1 {
+  margin-bottom: 1em;
+  color: white;
+}
+
+.error404-body a {
+  margin-bottom: 1em;
+  color: white;
+}
