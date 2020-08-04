@@ -15,12 +15,14 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 // Basic routes
-app.get('/', (req, res) => res.render('index'))
+app.get('/', (req, res) => res.render('index', { title: 'Youtube Downloader' }))
+
 app.get('/download', (req, res) => {
   res.send('/download')
 })
+
 app.use((req, res) => {
-  res.status(404).send('404, page not fount...')
+  res.status(404).render('404', { title: '404 | Youtube Downloader' })
 })
 
 app.listen(PORT, () => console.log(`Application started on http://localhost:${PORT}`))
